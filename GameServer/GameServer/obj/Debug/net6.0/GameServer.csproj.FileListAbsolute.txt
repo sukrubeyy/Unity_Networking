@@ -1,0 +1,15 @@
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\bin\Debug\net6.0\GameServer.exe
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\bin\Debug\net6.0\GameServer.deps.json
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\bin\Debug\net6.0\GameServer.runtimeconfig.json
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\bin\Debug\net6.0\GameServer.dll
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\bin\Debug\net6.0\ref\GameServer.dll
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\bin\Debug\net6.0\GameServer.pdb
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.csproj.AssemblyReference.cache
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.AssemblyInfoInputs.cache
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.AssemblyInfo.cs
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.csproj.CoreCompileInputs.cache
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.dll
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\ref\GameServer.dll
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.pdb
+D:\Unity-Projeler\Multiplayer_Game\GameServer\GameServer\obj\Debug\net6.0\GameServer.genruntimeconfig.cache
