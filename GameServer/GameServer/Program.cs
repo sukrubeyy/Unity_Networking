@@ -8,12 +8,9 @@ namespace GameServer
         static void Main(string[] args)
         {
             Console.Title = "Game Server";
-            
             isRunning = true;
-
             Thread mainThread = new Thread(new ThreadStart(MainThread));
             mainThread.Start();
-
             Server.Start(5, 26950);
         }
         private static void MainThread()

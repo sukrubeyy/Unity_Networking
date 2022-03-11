@@ -13,6 +13,7 @@ public class Client : MonoBehaviour
     public int myId = 0;
     public int _Port = 26950;
     public TCP tcp;
+    public UDP udp;
 
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
@@ -31,6 +32,7 @@ public class Client : MonoBehaviour
     private void Start()
     {
         tcp = new TCP();
+        udp = new UDP();
     }
 
     public void ConnectToServer()
@@ -49,7 +51,7 @@ public class Client : MonoBehaviour
         private Packet receiveData;
         public void Connect()
         {
-            
+
             socket = new TcpClient
             {
                 ReceiveBufferSize = _DataBufferSize,
@@ -148,7 +150,7 @@ public class Client : MonoBehaviour
             {
                 if (socket != null)
                 {
-                    stream.BeginWrite(_packet.ToArray(),0,_packet.Length(),null,null);
+                    stream.BeginWrite(_packet.ToArray(), 0, _packet.Length(), null, null);
                 }
             }
             catch (Exception e)
@@ -160,10 +162,84 @@ public class Client : MonoBehaviour
 
     }
 
+    public class UDP
+    {
+        public UdpClient socket;
+        public IPEndPoint endPoint;
+
+        public UDP()
+        {
+            endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance._Port);
+        }
+
+        public void Connect(int _localPort)
+        {
+            socket = new UdpClient(_localPort);
+            socket.Connect(endPoint);
+            socket.BeginReceive(ReceivingCallBack, null);
+            using(Packet _packet = new Packet()){
+                SendData(_packet);
+            }
+        }
+
+        public void SendData(Packet _packet)
+        {
+            try{
+                _packet.InsertInt(instance.myId);
+                if(socket!=null){
+                    socket.BeginSend(_packet.ToArray(),_packet.Length(),null,null);
+                }
+            }
+            catch(Exception _e){
+                Console.WriteLine($"Error sending data via UDP : {_e.Message}");
+            }
+        }
+
+        private void ReceivingCallBack(IAsyncResult _result)
+        {
+            try
+            {
+                byte[] _data = socket.EndReceive(_result, ref endPoint);
+                socket.BeginReceive(ReceivingCallBack, null);
+                if (_data.Length < 4)
+                {
+                    return;
+                }
+
+                HandleData(_data);
+                //TODO Disconnect
+            }
+            catch (Exception _e)
+            {
+                //TODO Disconnect
+            }
+        }
+
+        private void HandleData(byte[] _data)
+        {
+            using (Packet _packet = new Packet(_data))
+            {
+                int packetLength = _packet.ReadInt();
+                _data = _packet.ReadBytes(packetLength);
+            }
+
+            ThreadManager.ExecuteOnMainThread(() =>
+            {
+                using (Packet _packet = new Packet(_data))
+                {
+                    int _packetId = _packet.ReadInt();
+                    packetHandlers[_packetId](_packet);
+                }
+            });
+        }
+
+    }
+
     private void IntitializeClientData()
     {
         packetHandlers = new Dictionary<int, PacketHandler>(){
-            {(int)ServerPackets.welcome,ClientHandle.Welcome}
+            {(int)ServerPackets.welcome,ClientHandle.Welcome},
+            {(int)ServerPackets.udpTest,ClientHandle.UDPTest}
         };
         Debug.Log("Initialize Packets");
     }

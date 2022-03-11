@@ -12,15 +12,18 @@ namespace GameServer
         {
             //Packet uzunluğunu hesaplar
             _packet.WriteLength();
-
             //Paket verisini Client'a gönderiyorum
             Server.clients[_toClient].tcp.SendData(_packet);
+        }
+        public static void SendUDPData(int _toClient, Packet _packet)
+        {
+            _packet.WriteLength();
+            Server.clients[_toClient].udp.SendData(_packet);
         }
 
         public static void SendTCPDataAll(Packet _packet)
         {
             _packet.WriteLength();
-
             for (int i = 0; i <= Server._MaxPlayer; i++)
             {
                 Server.clients[i].tcp.SendData(_packet);
@@ -30,7 +33,6 @@ namespace GameServer
         public static void SendTCPDataAll(int _except , Packet _packet)
         {
             _packet.WriteLength();
-
             for (int i = 0; i <= Server._MaxPlayer; i++)
             {
                 if(i!=_except)
@@ -39,6 +41,38 @@ namespace GameServer
                 }
             }
         }
+
+
+        public static void SendUDPDataAll(Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 0; i <= Server._MaxPlayer; i++)
+            {
+                Server.clients[i].udp.SendData(_packet);
+            }
+        }
+
+        public static void SendUDPDataAll(int _except, Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 0; i <= Server._MaxPlayer; i++)
+            {
+                if (i != _except)
+                {
+                    Server.clients[i].udp.SendData(_packet);
+                }
+            }
+        }
+
+        public static void UDPTest(int _toClient)
+        {
+            using(Packet _packet = new Packet((int)ServerPackets.udpTest))
+            {
+                _packet.Write("A Test packet for UDP");
+                SendUDPData(_toClient, _packet);
+            }
+        }
+
         public static void Welcome(int _toClient, string msg)
         {
             using (Packet _packet = new Packet((int)ServerPackets.welcome))

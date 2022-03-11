@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-     class ServerHandler
+    class ServerHandler
     {
-        public static void WelcomeReceived(int _fromClient , Packet _packet)
+        public static void WelcomeReceived(int _fromClient, Packet _packet)
         {
             int checkClientId = _packet.ReadInt();
             string username = _packet.ReadString();
@@ -19,6 +19,12 @@ namespace GameServer
                 Console.WriteLine($" Player \" {username}\"(ID: {_fromClient}) has assumed the wrong client ID {checkClientId}!");
             }
             //TODO oyuncuyu oyun sahnesine gönder
+        }
+
+        public static void UDPTestReceived(int _toClient, Packet _packet)
+        {
+            string _msg = _packet.ReadString();
+            Console.WriteLine($"Received Packet via UDP. Contains Message {_msg}");
         }
     }
 }
