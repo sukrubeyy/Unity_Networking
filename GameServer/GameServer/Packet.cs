@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    /// <summary>Sent from server to client.</summary>
+    /// <summary>Server'dan client'a gönderilmiş</summary>
     public enum ServerPackets
     {
         welcome = 1,
         udpTest
     }
 
-    /// <summary>Sent from client to server.</summary>
+    /// <summary>Client'ten Server'a gönderilmiş</summary>
     public enum ClientPackets
     {
         welcomeReceived = 1,
@@ -26,7 +26,7 @@ namespace GameServer
         private byte[] readableBuffer;
         private int readPos;
 
-        /// <summary>Creates a new empty packet (without an ID).</summary>
+        /// <summary>ID'siz paket oluşturur</summary>
         public Packet()
         {
             buffer = new List<byte>(); // Intitialize buffer
@@ -54,7 +54,7 @@ namespace GameServer
         }
 
         #region Functions
-        /// <summary>Sets the packet's content and prepares it to be read.</summary>
+        /// <summary>Paket içeriğini ayarlar ve okunmaya hazırlar.</summary>
         /// <param name="_data">The bytes to add to the packet.</param>
         public void SetBytes(byte[] _data)
         {
@@ -94,8 +94,8 @@ namespace GameServer
             return Length() - readPos; // Return the remaining length (unread)
         }
 
-        /// <summary>Resets the packet instance to allow it to be reused.</summary>
-        /// <param name="_shouldReset">Whether or not to reset the packet.</param>
+        /// <summary>Yeniden kullanmasına izin vermesi için paketi sıfırlar.</summary>
+        /// <param name="_shouldReset">Paketin sıfırlanıp sıfırlanmayacağını döndürür.</param>
         public void Reset(bool _shouldReset = true)
         {
             if (_shouldReset)

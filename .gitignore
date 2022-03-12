@@ -23,7 +23,7 @@
 
 # Visual Studio cache directory
 .vs/
-*.csharp linguist-detectable=true
+
 
 # Gradle cache directory
 .gradle/

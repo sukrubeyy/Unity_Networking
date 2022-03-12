@@ -13,6 +13,10 @@ namespace GameServer
             mainThread.Start();
             Server.Start(5, 26950);
         }
+
+        /// <summary>
+        /// ThreadManager.UpdateMain methodunun sürekli dönmesini sağlıyor.
+        /// </summary>
         private static void MainThread()
         {
             Console.WriteLine($"Main Thread started. Running at {Constants.TICKS_PER_SEC} ticks second.");
