@@ -43,6 +43,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Numerics.Vectors": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

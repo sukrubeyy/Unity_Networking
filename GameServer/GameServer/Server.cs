@@ -7,17 +7,13 @@ namespace GameServer
 {
     public class Server
     {
-     
         public static int _MaxPlayer { get; private set; }
         public static int _Port { get; private set; }
-
         private static TcpListener tcpListener;
         private static UdpClient udpListener;
-
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
-
-        public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
+        public delegate void PacketHandler(int _fromClient, Packet _packet);
 
         /// <summary>
         /// Maksimum player ve port ataması ayrıca tcp,udp protokollerini oluşturmaktadır.
@@ -38,12 +34,12 @@ namespace GameServer
             tcpListener.Start();
             
             //TCP protokolüne client'ların giriş isteği gönderebilmesini başlatıyoruz.
-            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TcpConnectCallback), null);
+            tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
             udpListener = new UdpClient(_port);
 
             //UDP protokolünü türettik ve paket almasını sağlıyoruz.
             udpListener.BeginReceive(UDPReceiveCallback, null);
-            Console.WriteLine($"Server Started {_Port}");
+            Console.WriteLine($"Server Started on port :  {_Port}");
             
         }
 
@@ -128,7 +124,7 @@ namespace GameServer
             TcpClient _client = tcpListener.EndAcceptTcpClient(result);
 
             //Protokol'e gelen isteklerin devam etmesini sağlıyoruz.
-            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TcpConnectCallback), null);
+            tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
             Console.WriteLine($"Incoming Connected From {_client.Client.RemoteEndPoint}");
 
             //Başlangıçta oluştuduğumuz Dictionary<int,Client>'in tüm değerlerini dönüyoruz. Client class'ı içinde bulunan
@@ -159,10 +155,8 @@ namespace GameServer
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 {(int)ClientPackets.welcomeReceived,ServerHandler.WelcomeReceived },
-                {(int)ClientPackets.udpTestReceive,ServerHandler.UDPTestReceived }
+                {(int)ClientPackets.playerMovement,ServerHandler.PlayerMovement }
             };
-
-
             Console.WriteLine("Initialize Packets");
         }
 

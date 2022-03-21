@@ -85,6 +85,7 @@ public class Client : MonoBehaviour
                 int bytLength = stream.EndRead(result);
                 if (bytLength <= 0)
                 {
+                    //TODO Disconnect
                     return;
                 }
 
@@ -98,7 +99,6 @@ public class Client : MonoBehaviour
             catch (Exception e)
             {
                 //TODO Disconnect
-                Console.WriteLine($"ERROR : {e.Message}");
             }
         }
         private bool HandleData(byte[] _Data)
@@ -203,11 +203,11 @@ public class Client : MonoBehaviour
                 socket.BeginReceive(ReceivingCallBack, null);
                 if (_data.Length < 4)
                 {
+                //TODO Disconnect
                     return;
                 }
 
                 HandleData(_data);
-                //TODO Disconnect
             }
             catch (Exception _e)
             {
@@ -239,7 +239,9 @@ public class Client : MonoBehaviour
     {
         packetHandlers = new Dictionary<int, PacketHandler>(){
             {(int)ServerPackets.welcome,ClientHandle.Welcome},
-            {(int)ServerPackets.udpTest,ClientHandle.UDPTest}
+            {(int)ServerPackets.spawnPlayer,ClientHandle.SpawnPlayer},
+            {(int)ServerPackets.playerPosition,ClientHandle.PlayerPosition},
+            {(int)ServerPackets.playerRotation,ClientHandle.PlayerRotation}
         };
         Debug.Log("Initialize Packets");
     }

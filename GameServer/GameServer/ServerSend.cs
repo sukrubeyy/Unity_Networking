@@ -96,18 +96,6 @@ namespace GameServer
             }
         }
 
-        /// <summary>
-        /// Client'a UDP Test Paketi gönderir.
-        /// </summary>
-        /// <param name="_toClient"></param>
-        public static void UDPTest(int _toClient)
-        {
-            using(Packet _packet = new Packet((int)ServerPackets.udpTest))
-            {
-                _packet.Write("A Test packet for UDP");
-                SendUDPData(_toClient, _packet);
-            }
-        }
         #endregion
        
         /// <summary>
@@ -124,5 +112,39 @@ namespace GameServer
                 SendTCPData(_toClient,_packet);
             }
         }
+    
+        public static void SpawnPlayer(int _id, Player _player)
+        {
+            using(Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
+            {
+                _packet.Write(_player.id);
+                _packet.Write(_player.userName);
+                _packet.Write(_player.position);
+                _packet.Write(_player.rotation);
+
+                SendTCPData(_id,_packet);
+            }
+        }
+
+        public static void PlayerPosition(Player _player)
+        {
+            using(Packet _packet = new Packet((int)ServerPackets.playerPosition))
+            {
+                _packet.Write(_player.id);
+                _packet.Write(_player.position);
+                SendUDPDataAll(_packet);
+            }
+        }
+        public static void PlayerRotation(Player _player)
+        {
+            using(Packet _packet = new Packet((int)ServerPackets.playerRotation))
+            {
+                _packet.Write(_player.id);
+                _packet.Write(_player.rotation);
+                SendUDPDataAll(_player.id, _packet);
+                
+            }
+        }
+    
     }
 }

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Fj61j/MucT/xPMS2xdsC3toWe8H7iBqRT9pcC5h4Oh2QZFhSB3feawtjYIxISnFftpH90yM56rWjNTL4CQtQGA==",
+  "dgSpecHash": "BqXi/ig54tCzzG/N5pOnNsQQq5Wd76QTE24OFR6lhxIfgg8p40Nks+IB55wEvhUYhYJ7AgoikIasCE5mqSJjOA==",
   "success": true,
   "projectFilePath": "D:\\Unity-Projeler\\Multiplayer_Game\\GameServer\\GameServer\\GameServer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\sukru\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

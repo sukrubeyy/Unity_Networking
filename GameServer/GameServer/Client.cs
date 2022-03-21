@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Net.Sockets;
+using System.Numerics;
 
 namespace GameServer
 {
     public class Client
     {
-        public  int id;
-        public  TCP tcp;
+        public int id;
+        public Player player;
+        public TCP tcp;
         public UDP udp;
         public static int dataBufferSize = 4096;
         public Client(int _id)
@@ -19,12 +21,13 @@ namespace GameServer
             udp = new UDP(id);
         }
 
+
         public class TCP
         {
-            public  TcpClient sockets;
+            public TcpClient sockets;
             private NetworkStream stream;
             private Packet receiveData;
-            private readonly  int id;
+            private readonly int id;
             private byte[] receiveBuffer;
             public TCP(int _id)
             {
@@ -47,7 +50,7 @@ namespace GameServer
                 stream = sockets.GetStream();
 
                 //Oyunda bulunan client tarafından gönderilen paketleri tutacak değişken
-                receiveData=new Packet();
+                receiveData = new Packet();
                 receiveBuffer = new byte[dataBufferSize];
                 //Ağ üzerindeki veriyi okumaya başla.
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallBack, null);
@@ -84,19 +87,20 @@ namespace GameServer
                     int byteLength = stream.EndRead(result);
                     if (byteLength <= 0)
                     {
+                        //TODO DISCONNECT
                         return;
                     }
-                        
-                        byte[] data = new byte[byteLength];
-                        Array.Copy(receiveBuffer, data, byteLength);
-                        //Paketi yeniden kullanabilmek için sıfırlar.
-                        receiveData.Reset(HandleData(data));
-                        stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallBack, null);
-                   
+
+                    byte[] data = new byte[byteLength];
+                    Array.Copy(receiveBuffer, data, byteLength);
+                    //Paketi yeniden kullanabilmek için sıfırlar.
+                    receiveData.Reset(HandleData(data));
+                    stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallBack, null);
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Console.Write($"ERROR : {ex.Message}");
+                    Console.Write($"ERROR receiving tcp data : {ex.Message}");
                 }
             }
 
@@ -113,7 +117,7 @@ namespace GameServer
                 //Okunan değer 4'ten büyükse
                 if (receiveData.UnreadLength() >= 4)
                 {
-                     //Paket boyutunu oku 0'dan küçükse true döndürür ve paket sıfırlanır.
+                    //Paket boyutunu oku 0'dan küçükse veya eşitse  true döndürür ve paket sıfırlanır.
                     _packetLength = receiveData.ReadInt();
                     if (_packetLength <= 0)
                     {
@@ -131,11 +135,11 @@ namespace GameServer
                         {
                             int _packetId = _packet.ReadInt();
                             //Server içerisinde bu paketi yakala ve delegate çalıştır
-                            Server.packetHandlers[_packetId](id,_packet);
+                            Server.packetHandlers[_packetId](id, _packet);
                         }
                     });
                     _packetLength = 0;
-                    if (receiveData.UnreadLength() >= 4) 
+                    if (receiveData.UnreadLength() >= 4)
                     {
                         _packetLength = receiveData.ReadInt();
                         if (_packetLength <= 0)
@@ -152,7 +156,7 @@ namespace GameServer
                 return false;
             }
         }
-    
+
         public class UDP
         {
             public IPEndPoint endPoint;
@@ -166,7 +170,6 @@ namespace GameServer
             public void Connect(IPEndPoint _point)
             {
                 endPoint = _point;
-                ServerSend.UDPTest(id);
             }
 
             /// <summary>
@@ -190,15 +193,42 @@ namespace GameServer
 
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
-                    using(Packet _packet = new Packet(_packetBytes))
+                    using (Packet _packet = new Packet(_packetBytes))
                     {
                         int packetId = _packet.ReadInt();
-                        Server.packetHandlers[packetId](id,_packet);
+                        Server.packetHandlers[packetId](id, _packet);
                     }
                 });
             }
         }
-    
-    
+
+
+        public void SendIntoGame(string _playerName)
+        {
+            player = new Player(id, _playerName, new Vector3(0, 0, 0));
+
+            //Tüm player'ları benim için spawn eder
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    if (_client.id != id)
+                    {
+                        ServerSend.SpawnPlayer(id, _client.player);
+                    }
+                }
+            }
+
+            //Tüm kullanıcılarda benim spawn olmamı sağlar
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    ServerSend.SpawnPlayer(_client.id, player);
+                }
+            }
+        }
+
+
     }
 }
