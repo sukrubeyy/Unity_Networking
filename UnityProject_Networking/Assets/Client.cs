@@ -14,7 +14,7 @@ public class Client : MonoBehaviour
     public int _Port = 26950;
     public TCP tcp;
     public UDP udp;
-
+    private bool isConnected = false;
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
     private void Awake()
@@ -29,6 +29,11 @@ public class Client : MonoBehaviour
             Destroy(this);
         }
     }
+
+    void OnApplicationQuit()
+    {
+        Disconnect();
+    }
     private void Start()
     {
         tcp = new TCP();
@@ -38,7 +43,7 @@ public class Client : MonoBehaviour
     public void ConnectToServer()
     {
         IntitializeClientData();
-
+        isConnected = true;
         tcp.Connect();
 
     }
@@ -85,7 +90,7 @@ public class Client : MonoBehaviour
                 int bytLength = stream.EndRead(result);
                 if (bytLength <= 0)
                 {
-                    //TODO Disconnect
+                    instance.Disconnect();
                     return;
                 }
 
@@ -96,9 +101,9 @@ public class Client : MonoBehaviour
                 stream.BeginRead(receiveBuffer, 0, _DataBufferSize, ReceiveCallBack, null);
 
             }
-            catch (Exception e)
+            catch 
             {
-                //TODO Disconnect
+                Disconnect();
             }
         }
         private bool HandleData(byte[] _Data)
@@ -159,6 +164,14 @@ public class Client : MonoBehaviour
             }
         }
 
+        private void Disconnect()
+        {
+            instance.Disconnect();
+            stream = null;
+            receiveData = null;
+            receiveBuffer = null;
+            socket = null;
+        }
 
     }
 
@@ -177,20 +190,24 @@ public class Client : MonoBehaviour
             socket = new UdpClient(_localPort);
             socket.Connect(endPoint);
             socket.BeginReceive(ReceivingCallBack, null);
-            using(Packet _packet = new Packet()){
+            using (Packet _packet = new Packet())
+            {
                 SendData(_packet);
             }
         }
 
         public void SendData(Packet _packet)
         {
-            try{
+            try
+            {
                 _packet.InsertInt(instance.myId);
-                if(socket!=null){
-                    socket.BeginSend(_packet.ToArray(),_packet.Length(),null,null);
+                if (socket != null)
+                {
+                    socket.BeginSend(_packet.ToArray(), _packet.Length(), null, null);
                 }
             }
-            catch(Exception _e){
+            catch (Exception _e)
+            {
                 Console.WriteLine($"Error sending data via UDP : {_e.Message}");
             }
         }
@@ -203,7 +220,7 @@ public class Client : MonoBehaviour
                 socket.BeginReceive(ReceivingCallBack, null);
                 if (_data.Length < 4)
                 {
-                //TODO Disconnect
+                    instance.Disconnect();
                     return;
                 }
 
@@ -211,7 +228,7 @@ public class Client : MonoBehaviour
             }
             catch (Exception _e)
             {
-                //TODO Disconnect
+                Disconnect();
             }
         }
 
@@ -233,6 +250,12 @@ public class Client : MonoBehaviour
             });
         }
 
+        private void Disconnect()
+        {
+            instance.Disconnect();
+            endPoint = null;
+            socket = null;
+        }
     }
 
     private void IntitializeClientData()
@@ -246,7 +269,16 @@ public class Client : MonoBehaviour
         Debug.Log("Initialize Packets");
     }
 
-
+    void Disconnect()
+    {
+        if (isConnected)
+        {
+            isConnected = false;
+            tcp.socket.Close();
+            udp.socket.Close();
+            Debug.Log("Disconnect from server. TR: Server'dan ayrýldýnýz");
+        }
+    }
 
 
 }
