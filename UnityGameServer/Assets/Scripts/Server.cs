@@ -24,7 +24,7 @@ public class Server
         _MaxPlayer = _maxPlayer;
         _Port = _port;
 
-        Console.WriteLine("Server Starting....");
+        Debug.Log("Server Starting....");
 
 
         InitializeClient();
@@ -38,7 +38,7 @@ public class Server
 
         //UDP protokolünü türettik ve paket almasýný saðlýyoruz.
         udpListener.BeginReceive(UDPReceiveCallback, null);
-        Console.WriteLine($"Server Started on port :  {_Port}");
+        Debug.Log($"Server Started on port :  {_Port}");
 
     }
 
@@ -89,7 +89,7 @@ public class Server
 
         catch (Exception _ex)
         {
-            Console.WriteLine($"Error Receiving UDP DATA : {_ex.Message}");
+            Debug.Log($"Error Receiving UDP DATA : {_ex.Message}");
         }
     }
 
@@ -109,7 +109,7 @@ public class Server
         }
         catch (Exception _ex)
         {
-            Console.WriteLine($"Error Sending data to {_endPoint} via UDP {_ex.Message}");
+            Debug.Log($"Error Sending data to {_endPoint} via UDP {_ex.Message}");
         }
     }
 
@@ -124,7 +124,7 @@ public class Server
 
         //Protokol'e gelen isteklerin devam etmesini saðlýyoruz.
         tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
-        Console.WriteLine($"Incoming Connected From {_client.Client.RemoteEndPoint}");
+        Debug.Log($"Incoming Connected From {_client.Client.RemoteEndPoint}");
 
         //Baþlangýçta oluþtuduðumuz Dictionary<int,Client>'in tüm deðerlerini dönüyoruz. Client class'ý içinde bulunan
         //Tcp class'ý içindeki TcpClient türünde oluþturduðumuz socket deðiþkeni null ise server hala full deðil demektir
@@ -137,7 +137,7 @@ public class Server
             }
         }
 
-        Console.WriteLine($"Failed to connect : {_client.Client.RemoteEndPoint}");
+        Debug.Log($"Failed to connect : {_client.Client.RemoteEndPoint}");
     }
 
     /// <summary>
@@ -156,6 +156,12 @@ public class Server
                 {(int)ClientPackets.welcomeReceived,ServerHandler.WelcomeReceived },
                 {(int)ClientPackets.playerMovement,ServerHandler.PlayerMovement }
             };
-        Console.WriteLine("Initialize Packets");
+        Debug.Log("Initialize Packets");
+    }
+
+    public static void Stop()
+    {
+        tcpListener.Stop();
+        udpListener.Close();
     }
 }

@@ -30,16 +30,16 @@ public class Client : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
-    {
-        Disconnect();
-    }
+   
     private void Start()
     {
         tcp = new TCP();
         udp = new UDP();
     }
-
+    private void OnApplicationQuit()
+    {
+        Disconnect();
+    }
     public void ConnectToServer()
     {
         IntitializeClientData();
