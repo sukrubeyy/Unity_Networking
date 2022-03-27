@@ -141,4 +141,33 @@ public class ServerSend
 
         }
     }
+    
+    public static void PlayerDisconnect(int _id)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.playerDisconnect))
+        {
+            _packet.Write(_id);
+            SendTCPDataAll(_id,_packet);
+        }
+    }
+
+    public static void PlayerHealt(Player _player)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.playerHealt))
+        {
+            _packet.Write(_player.id);
+            _packet.Write(_player.healt);
+            SendTCPDataAll(_packet);
+        }
+    }
+
+    public static void PlayerRespawn(Player _player)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.playerRespawn))
+        {
+            _packet.Write(_player.id);
+            SendTCPDataAll(_packet);
+        }
+    }
+
 }

@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 5f;
     public float yVelocity = 0;
     public bool[] inputs;
+    public float healt;
+    public float maxHealt=100f;
+    public Transform shootOrigin;
+
 
     private void Start()
     {
@@ -24,12 +28,15 @@ public class Player : MonoBehaviour
     {
         id = _id;
         userName = _userName;
-    
+        healt = maxHealt;
         inputs = new bool[5];
     }
 
     public void FixedUpdate()
     {
+        if (healt <= 0)
+            return;
+
         Vector2 _inputDirection = Vector2.zero;
 
         if (inputs[0])
@@ -78,5 +85,43 @@ public class Player : MonoBehaviour
     {
         inputs = _inputs;
         transform.rotation = _rotation;
+    }
+
+    public void Shoot(Vector3 pos)
+    {
+        if(Physics.Raycast(shootOrigin.position,pos,out RaycastHit _hit, 25f))
+        {
+            if (_hit.collider.CompareTag("Player"))
+            {
+                _hit.collider.GetComponent<Player>().TakeDamage(50f);
+            }
+        }
+    }
+
+    public void TakeDamage(float _damage)
+    {
+        if (healt <= 0)
+        {
+            return;
+        }
+
+        healt -= _damage;
+        if (healt <= 0)
+        {
+            healt = 0;
+            characterController.enabled = false;
+            transform.position = new Vector3(0f, 30f, 0f);
+            ServerSend.PlayerPosition(this);
+            StartCoroutine(Respawn());
+        }
+        ServerSend.PlayerHealt(this);
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(5f);
+        healt = maxHealt;
+        characterController.enabled = true;
+        ServerSend.PlayerRespawn(this);
     }
 }

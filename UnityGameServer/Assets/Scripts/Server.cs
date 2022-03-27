@@ -154,7 +154,8 @@ public class Server
         packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 {(int)ClientPackets.welcomeReceived,ServerHandler.WelcomeReceived },
-                {(int)ClientPackets.playerMovement,ServerHandler.PlayerMovement }
+                {(int)ClientPackets.playerMovement,ServerHandler.PlayerMovement },
+                {(int)ClientPackets.playerShoot,ServerHandler.PlayerShoot }
             };
         Debug.Log("Initialize Packets");
     }

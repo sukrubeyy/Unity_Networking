@@ -19,11 +19,20 @@ public class CameraController : MonoBehaviour
         //Saða sola dönecek olan player objesi olduðu için onun y rotasyonunu alýyoruz
         _horizontalRotation = player.transform.eulerAngles.y;
     }
-    
+
     void Update()
     {
-        CameraRotation();
-        Debug.DrawRay(transform.position, transform.forward * 2,Color.magenta);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleCursorMode();
+        }
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            CameraRotation();
+        }
+
+        Debug.DrawRay(transform.position, transform.forward * 2, Color.magenta);
     }
 
     void CameraRotation()
@@ -36,6 +45,21 @@ public class CameraController : MonoBehaviour
 
         _verticalRotation = Mathf.Clamp(_verticalRotation, -_clampCamera, _clampCamera);
         transform.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
-        player.transform.rotation = Quaternion.Euler(0, _horizontalRotation, 0); 
+        player.transform.rotation = Quaternion.Euler(0, _horizontalRotation, 0);
     }
+
+    void ToggleCursorMode()
+    {
+        Cursor.visible = !Cursor.visible;
+
+        if (Cursor.lockState == CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
 }

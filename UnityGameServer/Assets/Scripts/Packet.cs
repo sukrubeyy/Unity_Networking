@@ -11,14 +11,18 @@ using UnityEngine;
         welcome = 1,
         spawnPlayer,
         playerPosition,
-        playerRotation
+        playerRotation,
+        playerDisconnect,
+        playerHealt,
+        playerRespawn
     }
 
     /// <summary>Client'ten Server'a gönderilmiþ</summary>
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerMovement
+        playerMovement,
+        playerShoot
     }
 
     public class Packet : IDisposable

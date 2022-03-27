@@ -27,4 +27,11 @@ public class ServerHandler
         Quaternion _rotation = _packet.ReadQuaternion();
         Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
     }
+
+
+   public static void PlayerShoot(int _fromClient, Packet _packet)
+    {
+        Vector3 direction = _packet.ReadPosition();
+        Server.clients[_fromClient].player.Shoot(direction);
+    }
 }

@@ -30,7 +30,7 @@ public class Client : MonoBehaviour
         }
     }
 
-   
+    
     private void Start()
     {
         tcp = new TCP();
@@ -264,7 +264,10 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.welcome,ClientHandle.Welcome},
             {(int)ServerPackets.spawnPlayer,ClientHandle.SpawnPlayer},
             {(int)ServerPackets.playerPosition,ClientHandle.PlayerPosition},
-            {(int)ServerPackets.playerRotation,ClientHandle.PlayerRotation}
+            {(int)ServerPackets.playerRotation,ClientHandle.PlayerRotation},
+            {(int)ServerPackets.playerDisconnect,ClientHandle.PlayerDisconnect},
+            {(int)ServerPackets.playerHealt,ClientHandle.PlayerHealt},
+            {(int)ServerPackets.playerRespawn,ClientHandle.PlayerRespawn}
         };
         Debug.Log("Initialize Packets");
     }
