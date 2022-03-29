@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public float healt;
     public float maxHealt=100f;
     public Transform shootOrigin;
+    public int itemAmount = 0;
+    public int maxItemAmount = 3;
 
 
     private void Start()
@@ -123,5 +125,14 @@ public class Player : MonoBehaviour
         healt = maxHealt;
         characterController.enabled = true;
         ServerSend.PlayerRespawn(this);
+    }
+
+    public bool AttemptPickupItem()
+    {
+        if (itemAmount >= maxItemAmount)
+            return false;
+
+        itemAmount++;
+        return true;
     }
 }

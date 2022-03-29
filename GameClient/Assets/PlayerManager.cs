@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     public float healt;
     public float maxHealt;
     public MeshRenderer model;
+    public int itemCount = 0;
 
     public void Initialize(int _id, string _userName)
     {

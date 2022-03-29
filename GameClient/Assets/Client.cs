@@ -267,7 +267,10 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.playerRotation,ClientHandle.PlayerRotation},
             {(int)ServerPackets.playerDisconnect,ClientHandle.PlayerDisconnect},
             {(int)ServerPackets.playerHealt,ClientHandle.PlayerHealt},
-            {(int)ServerPackets.playerRespawn,ClientHandle.PlayerRespawn}
+            {(int)ServerPackets.playerRespawn,ClientHandle.PlayerRespawn},
+            {(int)ServerPackets.createItemSpawner,ClientHandle.CreateItemSpawner},
+            {(int)ServerPackets.itemSpawned,ClientHandle.ItemSpawned},
+            {(int)ServerPackets.itemPickedUp,ClientHandle.ItemPickedUp}
         };
         Debug.Log("Initialize Packets");
     }

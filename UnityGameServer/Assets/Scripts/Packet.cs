@@ -14,7 +14,10 @@ using UnityEngine;
         playerRotation,
         playerDisconnect,
         playerHealt,
-        playerRespawn
+        playerRespawn,
+        createItemSpawner,
+        itemSpawned,
+        itemPickedUp
     }
 
     /// <summary>Client'ten Server'a gönderilmiþ</summary>

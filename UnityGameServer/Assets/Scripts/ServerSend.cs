@@ -169,5 +169,36 @@ public class ServerSend
             SendTCPDataAll(_packet);
         }
     }
+    
+    public static void CreateItemSpawner(int _toClient, int _spawnerId, Vector3 _position, bool _hasItem)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.createItemSpawner))
+        {
+            _packet.Write(_spawnerId);
+            _packet.Write(_position);
+            _packet.Write(_hasItem);
+
+            SendTCPData(_toClient, _packet);
+        }
+    }
+
+    public static void ItemSpawned(int _spawnerId)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.itemSpawned))
+        {
+            _packet.Write(_spawnerId);
+            SendTCPDataAll(_packet);
+        }
+    } 
+    public static void ItemPickedUp(int _spawnerId,int _byPlayer)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.itemPickedUp))
+        {
+            _packet.Write(_spawnerId);
+            _packet.Write(_byPlayer);
+            SendTCPDataAll(_packet);
+        }
+    }
+
 
 }

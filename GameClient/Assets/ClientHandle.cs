@@ -63,4 +63,29 @@ public class ClientHandle : MonoBehaviour
         int id = _packet.ReadInt();
         GameManager.instance.players[id].Respawn();
     }
+
+    public static void CreateItemSpawner(Packet _packet)
+    {
+        int _spawnerId = _packet.ReadInt();
+        Vector3 spawnPos = _packet.ReadPosition();
+        bool _hasItem = _packet.ReadBool();
+
+        GameManager.instance.CreateItemSpawner(_spawnerId, spawnPos, _hasItem);
+    }
+
+    public static void ItemSpawned(Packet _packet)
+    {
+        int _spawnerId = _packet.ReadInt();
+        GameManager.instance.itemSpawners[_spawnerId].ItemSpawned();
+    }
+
+    public static void ItemPickedUp(Packet _packet)
+    {
+        int _spawnerId = _packet.ReadInt();
+        int _byPlayerId = _packet.ReadInt();
+        GameManager.instance.itemSpawners[_spawnerId].ItemPickedUp();
+        GameManager.instance.players[_byPlayerId].itemCount++;
+
+    }
+
 }
