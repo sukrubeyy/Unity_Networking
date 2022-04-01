@@ -270,7 +270,10 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.playerRespawn,ClientHandle.PlayerRespawn},
             {(int)ServerPackets.createItemSpawner,ClientHandle.CreateItemSpawner},
             {(int)ServerPackets.itemSpawned,ClientHandle.ItemSpawned},
-            {(int)ServerPackets.itemPickedUp,ClientHandle.ItemPickedUp}
+            {(int)ServerPackets.itemPickedUp,ClientHandle.ItemPickedUp},
+            {(int)ServerPackets.spawnProjectile,ClientHandle.SpawnProjectile},
+            {(int)ServerPackets.projectilePos,ClientHandle.ProjectilePosition},
+            {(int)ServerPackets.projectileExp,ClientHandle.ProjectileExp}
         };
         Debug.Log("Initialize Packets");
     }

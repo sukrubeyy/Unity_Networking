@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -248,9 +248,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b97bda236cbbe4d9f2080b31cb206f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localPlayerPrefab: {fileID: 2046581896985335052, guid: f66f5915ff14047409afc48f71da1ddf, type: 3}
-  playerPrefab: {fileID: 2046581896985335052, guid: 90793a6714913ed40ad245bb64c9e9c3, type: 3}
-  itemSpawnPrefab: {fileID: 111630159152546798, guid: 5c78f8dba2fc6ba44844b4f28d156f19, type: 3}
+  localPlayerPrefab: {fileID: 2046581896985335052, guid: f66f5915ff14047409afc48f71da1ddf,
+    type: 3}
+  playerPrefab: {fileID: 2046581896985335052, guid: 90793a6714913ed40ad245bb64c9e9c3,
+    type: 3}
+  itemSpawnPrefab: {fileID: 111630159152546798, guid: 5c78f8dba2fc6ba44844b4f28d156f19,
+    type: 3}
+  projectilePrefab: {fileID: 5153659932081634390, guid: 7989225002c5fef4392b37194767258b,
+    type: 3}
 --- !u!4 &85647521
 Transform:
   m_ObjectHideFlags: 0

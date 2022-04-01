@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerHandler 
+public class ServerHandler
 {
     public static void WelcomeReceived(int _fromClient, Packet _packet)
     {
@@ -29,9 +29,15 @@ public class ServerHandler
     }
 
 
-   public static void PlayerShoot(int _fromClient, Packet _packet)
+    public static void PlayerShoot(int _fromClient, Packet _packet)
     {
         Vector3 direction = _packet.ReadPosition();
         Server.clients[_fromClient].player.Shoot(direction);
+    }
+
+    public static void PlayerThrowItem(int _fromClient, Packet _packet)
+    {
+        Vector3 throwDirection = _packet.ReadPosition();
+        Server.clients[_fromClient].player.ThrowItem(throwDirection);
     }
 }

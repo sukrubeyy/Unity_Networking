@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float gravity = -9.81f;
     public float moveSpeed = 5f;
     public float jumpSpeed = 5f;
+    public float throwForce = 600f;
     public float yVelocity = 0;
     public bool[] inputs;
     public float healt;
@@ -100,6 +101,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ThrowItem(Vector3 _view)
+    {
+        if (healt <= 0)
+            return;
+
+        if(itemAmount>0)
+        {
+            itemAmount--;
+            NetworkManager.instance.InstantieProjectile(shootOrigin).Initialize(_view, throwForce, id);
+        }
+    }
     public void TakeDamage(float _damage)
     {
         if (healt <= 0)

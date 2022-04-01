@@ -17,7 +17,10 @@ using UnityEngine;
         playerRespawn,
         createItemSpawner,
         itemSpawned,
-        itemPickedUp
+        itemPickedUp,
+        spawnProjectile,
+        projectilePos,
+        projectileExp
     }
 
     /// <summary>Client'ten Server'a gönderilmiþ</summary>
@@ -25,7 +28,8 @@ using UnityEngine;
     {
         welcomeReceived = 1,
         playerMovement,
-        playerShoot
+        playerShoot,
+        playerThrowItem
     }
 
     public class Packet : IDisposable

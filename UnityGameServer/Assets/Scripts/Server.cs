@@ -155,7 +155,8 @@ public class Server
             {
                 {(int)ClientPackets.welcomeReceived,ServerHandler.WelcomeReceived },
                 {(int)ClientPackets.playerMovement,ServerHandler.PlayerMovement },
-                {(int)ClientPackets.playerShoot,ServerHandler.PlayerShoot }
+                {(int)ClientPackets.playerShoot,ServerHandler.PlayerShoot },
+                {(int)ClientPackets.playerThrowItem,ServerHandler.PlayerThrowItem }
             };
         Debug.Log("Initialize Packets");
     }
