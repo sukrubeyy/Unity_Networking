@@ -98,6 +98,10 @@ public class Player : MonoBehaviour
             {
                 _hit.collider.GetComponent<Player>().TakeDamage(50f);
             }
+            else if (_hit.collider.CompareTag("Enemy"))
+            {
+                _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
+            }
         }
     }
 

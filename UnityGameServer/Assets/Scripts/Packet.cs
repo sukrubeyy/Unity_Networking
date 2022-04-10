@@ -20,7 +20,10 @@ using UnityEngine;
         itemPickedUp,
         spawnProjectile,
         projectilePos,
-        projectileExp
+        projectileExp,
+        spawnEnemy,
+        enemyPosition,
+        enemyHealt
     }
 
     /// <summary>Client'ten Server'a gönderilmiþ</summary>

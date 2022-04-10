@@ -57,6 +57,10 @@ public class Projectile : MonoBehaviour
             {
                 item.GetComponent<Player>().TakeDamage(expDamage);
             }
+            else if (item.CompareTag("Enemy"))
+            {
+                item.GetComponent<Enemy>().TakeDamage(expDamage);
+            }
         }
         projectiles.Remove(id);
         Destroy(gameObject);

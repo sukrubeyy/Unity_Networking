@@ -217,7 +217,7 @@ public class ServerSend
         {
             _packet.Write(_projectile.id);
             _packet.Write(_projectile.transform.position);
-            SendTCPDataAll(_packet);
+            SendUDPDataAll(_packet);
         }
     }
 
@@ -230,4 +230,60 @@ public class ServerSend
             SendTCPDataAll(_packet);
         }
     }
+
+    public static void SpawnEnemy(Enemy _enemy)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            SendTCPDataAll(SpawnEnemyData(_enemy, _packet));
+        }
+    }
+    public static void SpawnEnemy(int toClient , Enemy _enemy)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            SendTCPData(toClient,SpawnEnemyData(_enemy, _packet));
+        }
+    }
+
+    private static Packet SpawnEnemyData(Enemy enemy, Packet _packet)
+    {
+        _packet.Write(enemy.id);
+        _packet.Write(enemy.transform.position);
+        return _packet;
+    }
+
+    public static void EnemyPosition(Enemy _enemy)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.enemyPosition))
+        {
+            _packet.Write(_enemy.id);
+            _packet.Write(_enemy.transform.position);
+            SendUDPDataAll(_packet);
+        }
+    }
+
+    public static void EnemyHealt(Enemy enemy)
+    {
+        using(Packet _packet = new Packet((int)ServerPackets.enemyHealt))
+        {
+            _packet.Write(enemy.id);
+            _packet.Write(enemy.healt);
+            SendTCPDataAll(_packet);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

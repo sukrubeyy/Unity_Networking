@@ -52,11 +52,14 @@ MonoBehaviour:
   gravity: -19.62
   moveSpeed: 5
   jumpSpeed: 0.3
+  throwForce: 600
   yVelocity: 0
   inputs: 
   healt: 0
   maxHealt: 100
   shootOrigin: {fileID: 3451416108284682645}
+  itemAmount: 0
+  maxItemAmount: 3
 --- !u!143 &5250056533137289415
 CharacterController:
   m_ObjectHideFlags: 0
@@ -68,13 +71,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
+  m_Height: 2.12326
+  m_Radius: 0.54
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7232081375090487096
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7232081375090487096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 127192062714216358}
