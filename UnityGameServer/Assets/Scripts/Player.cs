@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         inputs = new bool[5];
     }
 
+   
     public void FixedUpdate()
     {
         if (healt <= 0)
@@ -59,6 +60,9 @@ public class Player : MonoBehaviour
             _inputDirection.x += 1;
         }
         Move(_inputDirection);
+
+        if (transform.position.y < -10)
+            TakeDamage(100f);
     }
 
     public void Move(Vector2 _inputDirection)

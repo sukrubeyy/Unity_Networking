@@ -9,6 +9,7 @@ public class NetworkManager : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject enemyPrefab;
     public GameObject playerPrefab;
+    public Transform[] playerSpawnPos;
     private void Awake()
     {
         if (instance == null)
@@ -36,7 +37,10 @@ public class NetworkManager : MonoBehaviour
 
     public Player InstantiatePlayer()
     {
-        return Instantiate(playerPrefab, new Vector3(0f,0.5f,0f), Quaternion.identity).GetComponent<Player>();
+
+        int rnd = Random.Range(0, playerSpawnPos.Length);
+        Debug.Log(playerSpawnPos[rnd].position);
+        return Instantiate(playerPrefab, playerSpawnPos[rnd].position, Quaternion.identity).GetComponent<Player>();
     }
     
     public Projectile InstantieProjectile(Transform _spawnPos)

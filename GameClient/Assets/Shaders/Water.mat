@@ -19,11 +19,18 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DissText:
+        m_Texture: {fileID: 2800000, guid: d40d05482b78a524aa45f5051e3ad908, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3a0edd45f8d097c4a8788e9d6b479916, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _DepthValue: 1
+    - _DissSpeed: 0.1
+    - _DissValue: 3
     - _WaveAmp: 0.2
     m_Colors:
     - _Color: {r: 0, g: 0.9042525, b: 1, a: 1}

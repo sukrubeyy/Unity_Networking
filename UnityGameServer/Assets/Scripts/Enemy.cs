@@ -62,6 +62,9 @@ public class Enemy : MonoBehaviour
 
                 break;
         }
+        if(transform.position.y<-10){
+            TakeDamage(100);
+        }
     }
 
     bool LookPlayer()
