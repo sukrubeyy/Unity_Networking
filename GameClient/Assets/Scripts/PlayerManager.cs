@@ -10,18 +10,20 @@ public class PlayerManager : MonoBehaviour
     public float maxHealt;
     public GameObject model;
     public int itemCount = 0;
-
+   
     public void Initialize(int _id, string _userName)
     {
         id = _id;
         userName = _userName;
         healt = maxHealt;
-
+        
     }
+
     
     public void SetHealt(float _healt)
     {
         healt = _healt;
+        LocalPlayerUIController.SetHealtMaterial(healt / 100f);
         if (healt <= 0f)
         {
             Die();
@@ -36,7 +38,6 @@ public class PlayerManager : MonoBehaviour
     public void Respawn()
     {
         model.SetActive(true);
-       
         SetHealt(maxHealt);
     }
 
