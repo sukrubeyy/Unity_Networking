@@ -142,14 +142,4 @@ public class ClientHandle : MonoBehaviour
         float _Healt = _packet.ReadFloat();
         GameManager.instance.enemies[_id].SetHealt(_Healt);
     }
-
-
-
-
-
-
-
-
-
-
 }

@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _OutValue: 0.03
+    - _OutValue: 0.02
     m_Colors:
     - _InsideColor: {r: 1, g: 0.8586132, b: 0, a: 1}
     - _OutColor: {r: 0, g: 1, b: 0.1276331, a: 1}

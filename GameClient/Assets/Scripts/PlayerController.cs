@@ -5,12 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Transform cameraTransform;
-
-   private void Update()
+    public GameObject effectsObject;
+    public  AudioSource shootSound;
+    private void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             ClientSend.PlayerShoot(cameraTransform.forward);
+            effectsObject.GetComponent<ParticleSystem>().Play();
+            shootSound.Play();
         }
         if (Input.GetMouseButtonDown(1))
         {

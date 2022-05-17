@@ -16,9 +16,7 @@ public class PlayerManager : MonoBehaviour
         id = _id;
         userName = _userName;
         healt = maxHealt;
-        
     }
-
     
     public void SetHealt(float _healt)
     {
@@ -27,9 +25,9 @@ public class PlayerManager : MonoBehaviour
         if (healt <= 0f)
         {
             Die();
+            LocalPlayerUIController.SetHealtMaterial(1f);
         }
     }
-
     public void Die()
     {
         model.SetActive(false);
@@ -40,5 +38,4 @@ public class PlayerManager : MonoBehaviour
         model.SetActive(true);
         SetHealt(maxHealt);
     }
-
 }

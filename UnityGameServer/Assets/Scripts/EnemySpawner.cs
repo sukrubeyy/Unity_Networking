@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public float freeQuency = 3f;
+    public float freeQuency = 5f;
     private void Start()
     {
         StartCoroutine(SpawnEnemy());
@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnEnemy()
     {
         yield return new WaitForSeconds(freeQuency);
-        if (Enemy.enemies.Count < Enemy.maxEnemy)
+        if (Enemy.enemies.Count <= Enemy.maxEnemy)
         {
             NetworkManager.instance.InstantieEnemy(transform.position);
         }

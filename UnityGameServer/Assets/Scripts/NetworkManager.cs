@@ -39,7 +39,6 @@ public class NetworkManager : MonoBehaviour
     {
 
         int rnd = Random.Range(0, playerSpawnPos.Length);
-        Debug.Log(playerSpawnPos[rnd].position);
         return Instantiate(playerPrefab, playerSpawnPos[rnd].position, Quaternion.identity).GetComponent<Player>();
     }
     

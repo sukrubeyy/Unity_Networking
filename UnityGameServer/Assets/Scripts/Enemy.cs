@@ -184,7 +184,7 @@ public class Enemy : MonoBehaviour
             {
                 if (Random.value <= shootAccuracy)
                 {
-                    hit.collider.GetComponent<Player>().TakeDamage(5f);
+                    hit.collider.GetComponent<Player>().TakeDamage(2f);
                 }
             }
         }

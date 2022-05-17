@@ -46,7 +46,6 @@ public class ClientSend : MonoBehaviour
         using(Packet _packet = new Packet((int)ClientPackets.playerShoot))
         {
             _packet.Write(_shotFace);
-
             SendTCPData(_packet);
         }
     }
