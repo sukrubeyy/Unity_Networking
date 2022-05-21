@@ -9,7 +9,7 @@ public class Client : MonoBehaviour
 {
     public static Client instance;
     public static int _DataBufferSize = 4096;
-    public string ip = "127.0.0.1";
+    public string ip = "";
     public int myId = 0;
     public int _Port = 26950;
     public TCP tcp;
@@ -30,6 +30,7 @@ public class Client : MonoBehaviour
         }
     }
 
+   
 
     private void OnApplicationQuit()
     {
@@ -39,11 +40,10 @@ public class Client : MonoBehaviour
     {
         tcp = new TCP();
         udp = new UDP();
-
+       
         IntitializeClientData();
         isConnected = true;
         tcp.Connect();
-
     }
 
     public class TCP
@@ -54,7 +54,6 @@ public class Client : MonoBehaviour
         private Packet receiveData;
         public void Connect()
         {
-
             socket = new TcpClient
             {
                 ReceiveBufferSize = _DataBufferSize,
@@ -63,17 +62,16 @@ public class Client : MonoBehaviour
 
             receiveBuffer = new byte[_DataBufferSize];
             socket.BeginConnect(instance.ip, instance._Port, ConnectCallBack, socket);
+            
         }
 
         private void ConnectCallBack(IAsyncResult result)
         {
             socket.EndConnect(result);
-
             if (!socket.Connected)
             {
                 return;
             }
-
 
             stream = socket.GetStream();
             receiveData = new Packet();
