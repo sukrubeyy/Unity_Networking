@@ -13,7 +13,7 @@ public class LocalPlayerUIController : MonoBehaviour
         _HealtBarMat = _HealtBarImage.GetComponent<Image>().material;
     }
 
-    public static void SetHealtMaterial(float _value)
+    public void SetHealtMaterial(float _value)
     {
         _HealtBarMat.SetFloat("_HealtBarValue", _value);
     }

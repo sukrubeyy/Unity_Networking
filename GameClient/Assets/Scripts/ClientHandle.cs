@@ -26,7 +26,7 @@ public class ClientHandle : MonoBehaviour
         Vector3 _position = _packet.ReadPosition();
         Quaternion _rotation = _packet.ReadQuaternion();
         GameManager.instance.SpawnPlayer(_id, _userName, _position, _rotation);
-
+        PlayerController.SetPlayerID(_id);
     }
 
     public static void PlayerPosition(Packet _packet)
@@ -60,6 +60,10 @@ public class ClientHandle : MonoBehaviour
     {
         int id = _packet.ReadInt();
         float healt = _packet.ReadFloat();
+        //GameManager.instance.players[id].GUI.SetHealtMaterial(healt / 100f);
+        if(GameManager.instance.players[id].GetComponent<LocalPlayerUIController>()!=null)
+            GameManager.instance.players[id].GetComponent<LocalPlayerUIController>().SetHealtMaterial(healt / 100f);
+
         GameManager.instance.players[id].SetHealt(healt);
     }
 
@@ -67,6 +71,8 @@ public class ClientHandle : MonoBehaviour
     {
         int id = _packet.ReadInt();
         GameManager.instance.players[id].Respawn();
+        if (GameManager.instance.players[id].GetComponent<LocalPlayerUIController>() != null)
+            GameManager.instance.players[id].GetComponent<LocalPlayerUIController>().SetHealtMaterial(1f);
     }
 
     public static void CreateItemSpawner(Packet _packet)
@@ -90,6 +96,8 @@ public class ClientHandle : MonoBehaviour
         int _byPlayerId = _packet.ReadInt();
         GameManager.instance.itemSpawners[_spawnerId].ItemPickedUp();
         GameManager.instance.players[_byPlayerId].itemCount++;
+        PlayerController.instance.ChangeSoundEffect(3);
+        
 
     }
     public static void SpawnProjectile(Packet _packet)
@@ -140,6 +148,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         float _Healt = _packet.ReadFloat();
+
         GameManager.instance.enemies[_id].SetHealt(_Healt);
     }
 }

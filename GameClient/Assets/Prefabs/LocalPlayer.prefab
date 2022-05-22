@@ -175,7 +175,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 7663507087723625049}
   effectsObject: {fileID: 1461147505160074511}
-  shootSound: {fileID: 1208089708166643322}
+  _AudioSource: {fileID: 1208089708166643322}
+  _SoundClips:
+  - {fileID: 8300000, guid: 54d54d960b774574e9fb9bf7d9d76086, type: 3}
+  - {fileID: 8300000, guid: 68db928c048a375418669afa3557ccba, type: 3}
+  - {fileID: 8300000, guid: 775b4e32aaccd0b4ab88e810a51fda35, type: 3}
+  - {fileID: 8300000, guid: d35b23ed053dc7d478002a785e2a10f2, type: 3}
+  - {fileID: 8300000, guid: 3be1507e51ceb7e499f19ffb2749483e, type: 3}
+  - {fileID: 8300000, guid: 5bb6ae0415d08664eade22555582d874, type: 3}
+  - {fileID: 8300000, guid: fb4a364c32eb7ac40977e9e7bd02d3e2, type: 3}
+  - {fileID: 8300000, guid: 992ab94c98281634ba34f1eb46661812, type: 3}
 --- !u!114 &3664746011148398521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,8 +208,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 54d54d960b774574e9fb9bf7d9d76086, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

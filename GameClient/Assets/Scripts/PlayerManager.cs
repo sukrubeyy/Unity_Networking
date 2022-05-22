@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Net;
+using System.Net.Sockets;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -10,22 +12,22 @@ public class PlayerManager : MonoBehaviour
     public float maxHealt;
     public GameObject model;
     public int itemCount = 0;
-   
+
     public void Initialize(int _id, string _userName)
     {
         id = _id;
         userName = _userName;
         healt = maxHealt;
     }
-    
+
     public void SetHealt(float _healt)
     {
         healt = _healt;
-        LocalPlayerUIController.SetHealtMaterial(healt / 100f);
+        PlayerController.instance.ChangeSoundEffect(2);
         if (healt <= 0f)
         {
             Die();
-            LocalPlayerUIController.SetHealtMaterial(1f);
+            PlayerController.instance.ChangeSoundEffect(4);
         }
     }
     public void Die()
@@ -37,5 +39,6 @@ public class PlayerManager : MonoBehaviour
     {
         model.SetActive(true);
         SetHealt(maxHealt);
+        PlayerController.instance.ChangeSoundEffect(5);
     }
 }
