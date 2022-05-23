@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public static int id;
     public static PlayerController instance;
 
+
     private void Start()
     {
         if(instance!=null)
@@ -38,14 +39,12 @@ public class PlayerController : MonoBehaviour
             if (GameManager.instance.players[id].itemCount > 0)
                 ChangeSoundEffect(1);
         }
-        if (transform.position.y > -5)
-        {
-            ChangeSoundEffect(7);
-        }
+      
     }
 
     public void ChangeSoundEffect(int _id)
     {
+        Debug.Log(_id + "ID Numaralý Music Çalýndý");
         _AudioSource.clip = _SoundClips[_id];
         _AudioSource.Play();
     }

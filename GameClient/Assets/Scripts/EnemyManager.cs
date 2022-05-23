@@ -7,6 +7,9 @@ public class EnemyManager : MonoBehaviour
     public int id;
     public float healt;
     public float maxHealt = 100;
+    public Color defaultColor;
+    public Color _color;
+    public Material _outlineMat;
 
     public void Initialize(int _id)
     {

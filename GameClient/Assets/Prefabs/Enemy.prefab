@@ -48,6 +48,9 @@ MonoBehaviour:
   id: 0
   healt: 0
   maxHealt: 100
+  defaultColor: {r: 1, g: 0.93333334, b: 0, a: 0}
+  _color: {r: 0, g: 0.84308505, b: 1, a: 0}
+  _outlineMat: {fileID: 2100000, guid: 3c970570b62a03347a79d14902d2e405, type: 2}
 --- !u!1 &5657181427569386568
 GameObject:
   m_ObjectHideFlags: 0

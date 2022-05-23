@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
-
+using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public int id;
@@ -12,7 +12,6 @@ public class PlayerManager : MonoBehaviour
     public float maxHealt;
     public GameObject model;
     public int itemCount = 0;
-
     public void Initialize(int _id, string _userName)
     {
         id = _id;

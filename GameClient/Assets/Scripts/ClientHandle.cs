@@ -97,8 +97,6 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.itemSpawners[_spawnerId].ItemPickedUp();
         GameManager.instance.players[_byPlayerId].itemCount++;
         PlayerController.instance.ChangeSoundEffect(3);
-        
-
     }
     public static void SpawnProjectile(Packet _packet)
     {
